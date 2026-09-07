@@ -2706,13 +2706,13 @@ document.addEventListener("DOMContentLoaded", () => {
 (() => {
   "use strict";
 
-  const LIBRARY_BOOKS = {
-    "book-1": {
-      title: "مێژووی ئەدەبی کوردی",
-      author: "د. هێمن مەعروف",
-      type: "کتێب",
-      description:
-        "کتێبێکی تایبەت بە مێژوو و گەشەکردنی ئەدەبی کوردی و گرنگترین قۆناغەکانی.",
+  "book-7": {
+    title: "وشەسازی",
+    author: "نەریمان عەبدوڵڵا خۆشناو",
+    type: "کتێب",
+    description: "کتێبێک لە بواری وشەسازی و زمان",
+    pdf: "وشەسازی.pdf"
+},
     },
 
     "book-2": {
