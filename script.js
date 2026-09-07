@@ -3456,7 +3456,7 @@ document.addEventListener("DOMContentLoaded", () => {
             text.includes(query);
 
           card.style.display =
-            match ? "" : "block";
+            match ? "" : "none";
 
           if (match) {
             visible++;
@@ -3592,4 +3592,63 @@ document.addEventListener("DOMContentLoaded", () => {
     isSaved,
     toggleSaved,
   };
+
+
+/* =========================================================
+   Kurdana — Robust Library Navigation
+   ========================================================= */
+(() => {
+  "use strict";
+
+  const openLibraryPage = () => {
+    if (typeof window.kurdanaGo === "function") {
+      window.kurdanaGo("libraryPage");
+    } else {
+      document.querySelectorAll(".page-view").forEach((page) => {
+        page.classList.remove("active");
+      });
+
+      const library = document.getElementById("libraryPage");
+      const home = document.getElementById("home");
+
+      if (library) library.classList.add("active");
+      if (home) home.style.display = "none";
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    if (location.hash !== "#libraryPage") {
+      history.pushState(null, "", "#libraryPage");
+    }
+  };
+
+  document.addEventListener("click", (event) => {
+    const link = event.target.closest(
+      'a[href="#library"], a[href="#libraryPage"], [data-page="libraryPage"]'
+    );
+
+    if (link) {
+      event.preventDefault();
+      openLibraryPage();
+    }
+  });
+
+  window.addEventListener("hashchange", () => {
+    const hash = location.hash.slice(1);
+
+    if (hash === "library" || hash === "libraryPage") {
+      openLibraryPage();
+      return;
+    }
+
+    const target = document.getElementById(hash);
+    if (target && target.classList.contains("page-view") &&
+        typeof window.kurdanaGo === "function") {
+      window.kurdanaGo(hash);
+    }
+  });
+
+  if (location.hash === "#library") {
+    setTimeout(openLibraryPage, 0);
+  }
 })();
