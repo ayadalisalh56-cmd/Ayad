@@ -1835,3 +1835,218 @@ footer{background:#0a3d32;color:#e8eee9;display:grid;grid-template-columns:2fr r
     margin-right: 0;
   }
 }
+/* =====================================================
+   Kurdana Library — Stage 3
+   Search / Filter / Sort
+===================================================== */
+
+.library-controls-stage3 {
+  margin-top: 24px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid var(--line, #e5ddcf);
+  border-radius: 16px;
+  box-shadow: var(--shadow, 0 8px 25px rgba(31,43,35,.06));
+}
+
+
+/* Search */
+
+.library-search-stage3 {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.library-search-stage3 input {
+  width: 100%;
+  height: 48px;
+  padding: 0 46px 0 42px;
+  border: 1px solid var(--line, #e5ddcf);
+  border-radius: 12px;
+  outline: none;
+  background: #fbfaf7;
+  color: var(--ink, #202620);
+  font-family: inherit;
+  font-size: 12px;
+  direction: rtl;
+  transition: .2s ease;
+}
+
+.library-search-stage3 input:focus {
+  border-color: var(--green, #0b4a3b);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(11,74,59,.06);
+}
+
+.library-search-icon {
+  position: absolute;
+  right: 15px;
+  z-index: 2;
+  color: var(--green, #0b4a3b);
+  font-size: 22px;
+  pointer-events: none;
+}
+
+.library-search-stage3 input::placeholder {
+  color: #aaa;
+}
+
+#libraryClearSearch {
+  position: absolute;
+  left: 12px;
+  border: 0;
+  background: transparent;
+  color: #999;
+  font-size: 21px;
+  cursor: pointer;
+  display: none;
+}
+
+
+/* Filters */
+
+.library-filter-row-stage3 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 13px;
+}
+
+.library-filter-btn-stage3 {
+  border: 1px solid var(--line, #e5ddcf);
+  background: #fff;
+  color: #666;
+  border-radius: 999px;
+  padding: 8px 13px;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: .2s ease;
+}
+
+.library-filter-btn-stage3:hover {
+  border-color: var(--green, #0b4a3b);
+  color: var(--green, #0b4a3b);
+}
+
+.library-filter-btn-stage3.active {
+  background: var(--green, #0b4a3b);
+  color: #fff;
+  border-color: var(--green, #0b4a3b);
+}
+
+
+/* Sort */
+
+.library-sort-stage3 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 14px;
+  color: #888;
+  font-size: 10px;
+}
+
+.library-sort-stage3 select {
+  border: 1px solid var(--line, #e5ddcf);
+  background: #fff;
+  color: var(--green, #0b4a3b);
+  border-radius: 9px;
+  padding: 8px 11px;
+  font-family: inherit;
+  font-size: 10px;
+  outline: none;
+  cursor: pointer;
+}
+
+
+/* Results */
+
+.library-results-stage3 {
+  margin: 14px 2px;
+  color: #999;
+  font-size: 10px;
+}
+
+
+/* Empty */
+
+.library-empty-stage3 {
+  padding: 55px 20px;
+  margin: 20px 0;
+  text-align: center;
+  border: 1px dashed var(--line, #e5ddcf);
+  border-radius: 16px;
+  background: #fff;
+}
+
+.library-empty-stage3[hidden] {
+  display: none;
+}
+
+.library-empty-icon {
+  font-size: 38px;
+  margin-bottom: 10px;
+}
+
+.library-empty-stage3 h3 {
+  margin: 0 0 6px;
+  color: var(--green, #0b4a3b);
+  font-size: 18px;
+}
+
+.library-empty-stage3 p {
+  margin: 0 0 15px;
+  color: #999;
+  font-size: 11px;
+}
+
+#libraryResetFilters {
+  border: 0;
+  background: var(--green, #0b4a3b);
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+
+/* Hidden book card */
+
+.library-book-card.library-hidden-stage3 {
+  display: none !important;
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+  .library-controls-stage3 {
+    padding: 12px;
+  }
+
+  .library-filter-row-stage3 {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 3px;
+  }
+
+  .library-filter-btn-stage3 {
+    flex: 0 0 auto;
+  }
+
+  .library-sort-stage3 {
+    justify-content: space-between;
+  }
+
+  .library-sort-stage3 select {
+    flex: 1;
+    max-width: 190px;
+  }
+}
