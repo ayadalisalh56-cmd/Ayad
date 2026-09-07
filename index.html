@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="ckb" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Kurdana — ماڵی زانیاری و ناوەڕۆکی کوردی">
+<title>Kurdana — ماڵی زانیاری و ناوەڕۆکی کوردی</title>
+<style>
+@font-face{font-family:KurdishUI;src:local("Noto Sans Arabic"),local("Noto Sans Kurdish"),local("Arial")}
+:root{--green:#073c32;--green2:#0e5143;--gold:#b48735;--cream:#f7f2e8;--paper:#fffdf9;--ink:#102e28;--muted:#68736e;--line:#e6dfd2}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:KurdishUI,Arial,sans-serif;overflow-x:hidden}
+button,input{font:inherit}a{text-decoration:none;color:inherit}
+.wrap{width:min(1420px,calc(100% - 40px));margin:auto}
+
+header{height:76px;background:rgba(255,253,249,.98);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.nav{height:100%;display:flex;align-items:center;gap:22px}
+.logo{width:184px;height:64px;object-fit:contain;display:block}
+.links{display:flex;align-items:center;justify-content:center;gap:22px;flex:1;font-weight:700;font-size:14px}
+.links a{padding:25px 0 18px;border-bottom:3px solid transparent;white-space:nowrap}
+.links a.active{border-bottom-color:var(--green)}
+.actions{display:flex;align-items:center;gap:8px}
+.circle{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:#fff;display:grid;place-items:center}
+.btn{border:1px solid var(--green);border-radius:13px;padding:9px 17px;background:#fff;font-weight:800;cursor:pointer}
+.btn.main{background:var(--green);color:#fff}
+
+.hero{position:relative;min-height:580px;overflow:hidden;background:#eadfcb}
+.hero-art{position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(255,250,239,.97) 0%,rgba(255,250,239,.84) 30%,rgba(255,250,239,.18) 66%,rgba(0,0,0,.04)),url("assets/approved-design.jpg");background-size:cover;background-position:center 11%}
+.hero-inner{position:relative;min-height:580px;display:flex;align-items:center}
+.hero-copy{width:min(710px,58%);padding:58px 0 45px}
+.badge{display:inline-block;background:#edf2ea;border:1px solid #d8e2d8;border-radius:999px;padding:5px 17px;color:var(--green2);font-weight:800}
+h1{font-family:Georgia,serif;font-size:clamp(54px,7vw,96px);line-height:.98;margin:18px 0 12px;color:#073c32}
+.kur{font-family:KurdishUI,Arial,sans-serif;font-size:clamp(25px,3vw,42px);font-weight:900;margin-bottom:13px}
+.hero-copy p{font-size:17px;line-height:2;color:#445650;max-width:660px;margin:0 0 22px}
+.search{display:flex;align-items:center;background:#fff;border:1px solid #ddd7ca;border-radius:16px;padding:5px;max-width:710px;box-shadow:0 10px 28px #00000012}
+.search input{border:0;outline:0;flex:1;min-width:0;padding:11px 14px;background:transparent;color:var(--ink)}
+.search button{border:0;background:var(--gold);color:#fff;border-radius:12px;padding:9px 25px;font-weight:900}
+.quick{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.quick span{padding:5px 12px;border-radius:999px;background:#f5f1e8;border:1px solid #e6ded0;font-size:12px}
+
+.stats{margin-top:-26px;position:relative;z-index:2}
+.stat-grid{display:grid;grid-template-columns:repeat(6,1fr);background:rgba(255,253,249,.98);border:1px solid var(--line);border-radius:19px;box-shadow:0 13px 35px #3a302011;overflow:hidden}
+.stat{text-align:center;padding:18px 8px;border-left:1px solid var(--line)}
+.stat:last-child{border-left:0}
+.stat b{display:block;font:800 24px Georgia,serif;color:var(--green)}
+.stat small{font-size:12px;color:var(--muted)}
+
+.section{padding:55px 0}
+.title{text-align:center;margin-bottom:23px}
+.title h2{margin:0;font-size:30px}
+.title p{margin:2px 0;color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.card{background:#fff;border:1px solid var(--line);border-radius:15px;overflow:hidden;transition:.2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 12px 25px #263c3410}
+.card-img{height:150px;background:#eee9df;overflow:hidden}
+.card-img img{width:100%;height:100%;object-fit:cover}
+.card-body{text-align:center;padding:10px 7px 13px}
+.card-body b{display:block;font-size:15px}
+.card-body small{font-size:11px;color:var(--muted)}
+
+.split{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.panel{border-radius:22px;min-height:255px;overflow:hidden;border:1px solid var(--line)}
+.panel.dark{background:var(--green);color:#fff;padding:32px;position:relative}
+.panel.dark:after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,#0b493b88,#0b493b00),url("assets/approved-design.jpg") center/cover;opacity:.25}
+.panel.dark>*{position:relative;z-index:1}
+.panel h3{font-size:30px;margin:0 0 8px}
+.panel p{color:#dbe7e1;line-height:1.9}
+.panel.image{background:url("assets/approved-design.jpg") center/cover;position:relative}
+.panel.image:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#073c32d9,#073c3200)}
+.panel.image .inside{position:absolute;z-index:1;right:28px;top:45px;color:#fff}
+.inside h3{font-size:33px;margin:0}
+
+footer{background:#082e27;color:#e2ebe7;padding:45px 0 25px}
+.foot{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:35px}
+.foot h4{color:#fff;margin:0 0 10px}
+.foot a{display:block;color:#bdcbc5;margin:5px 0;font-size:13px}
+.copy{border-top:1px solid #ffffff1b;margin-top:30px;padding-top:17px;color:#9fb1aa;font-size:12px}
+
+@media(max-width:1050px){
+  .links{gap:10px}
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .hero-copy{width:65%}
+  .stat-grid{grid-template-columns:repeat(3,1fr)}
+}
+
+@media(max-width:700px){
+  .wrap{width:calc(100% - 28px)}
+  header{height:68px}
+  .nav{gap:10px}
+  .logo{width:125px;height:58px}
+  .links{display:none}
+  .actions{margin-right:auto}
+  .actions .btn{display:none}
+  .circle{width:40px;height:40px}
+
+  .hero{min-height:0}
+  .hero-art{
+    background-image:linear-gradient(rgba(255,250,239,.82),rgba(255,250,239,.93)),url("assets/approved-design.jpg");
+    background-position:center top;
+    background-size:cover;
+  }
+  .hero-inner{min-height:0;display:block}
+  .hero-copy{width:100%;padding:42px 0 34px;text-align:right}
+  .badge{font-size:12px;padding:6px 12px}
+  h1{font-size:58px;text-align:center;margin:20px 0 10px}
+  .kur{font-size:25px;line-height:1.5;text-align:center}
+  .hero-copy p{font-size:14px;line-height:1.9;text-align:center;margin:0 auto 20px;max-width:520px}
+  .search{width:100%;max-width:none;display:flex;flex-direction:row;padding:5px;border-radius:14px}
+  .search input{font-size:14px;padding:11px 10px;min-width:0}
+  .search button{padding:10px 15px;white-space:nowrap}
+  .quick{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px;scrollbar-width:none}
+  .quick::-webkit-scrollbar{display:none}
+  .quick span{flex:0 0 auto;font-size:12px}
+
+  .stats{margin-top:0;padding:0 0 8px}
+  .stat-grid{grid-template-columns:repeat(2,1fr);border-radius:16px;box-shadow:0 8px 22px #3a302010}
+  .stat{padding:15px 6px;border-left:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .stat:nth-child(2n){border-left:0}
+  .stat:nth-last-child(-n+2){border-bottom:0}
+  .stat b{font-size:20px}
+  .stat small{font-size:11px}
+
+  .section{padding:38px 0}
+  .title{margin-bottom:18px}
+  .title h2{font-size:25px}
+  .title p{font-size:13px;line-height:1.8}
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .card{border-radius:14px}
+  .card-img{height:145px}
+  .card-body{padding:9px 6px 12px}
+  .card-body b{font-size:14px}
+  .card-body small{font-size:10px}
+
+  .split{grid-template-columns:1fr;gap:12px}
+  .panel{min-height:220px;border-radius:18px}
+  .panel.dark{padding:25px}
+  .panel h3{font-size:24px}
+  .panel.image .inside{right:22px;top:30px}
+  .inside h3{font-size:27px}
+
+  footer{padding:35px 0 22px}
+  .foot{grid-template-columns:1fr 1fr;gap:24px}
+  .foot p{font-size:12px;line-height:1.8}
+}
+
+@media(max-width:390px){
+  .wrap{width:calc(100% - 22px)}
+  .logo{width:112px}
+  h1{font-size:52px}
+  .kur{font-size:22px}
+  .search input{font-size:13px}
+  .search button{padding:9px 12px;font-size:13px}
+  .card-img{height:125px}
+  .stat b{font-size:18px}
+}
+</style>
+
+<style>
+/* Kurdana category cards — final responsive cleanup */
+.cards{align-items:stretch}
+.card{display:block;min-width:0}
+.card-img{background:#f3eee3;position:relative}
+.card-img img{display:block;width:100%;height:100%;object-fit:cover}
+@media(max-width:760px){
+  .wrap{width:calc(100% - 24px)}
+  .hero{min-height:470px}
+  .hero-inner{min-height:470px}
+  .hero-copy{width:100%;padding:42px 0 30px}
+  h1{font-size:48px}
+  .kur{font-size:24px}
+  .hero-copy p{font-size:15px}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .stat{padding:13px 6px;border-bottom:1px solid var(--line)}
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .card{border-radius:18px}
+  .card-img{height:118px}
+  .card-body{padding:12px 6px 15px}
+  .card-body b{font-size:17px}
+  .card-body small{font-size:12px}
+}
+@media(max-width:430px){
+  .cards{grid-template-columns:1fr;gap:14px}
+  .card-img{height:170px}
+}
+</style>
+</head>
+<body>
+<header>
+<div class="wrap nav">
+<a href="#" aria-label="Kurdana"><img class="logo" src="assets/kurdana-logo.png" alt="Kurdana"></a>
+<nav class="links">
+<a class="active" href="#">سەرەتا</a><a href="#about">دەربارە</a><a href="#sections">بەشەکان</a><a href="search.html">کتێبخانە</a><a href="#language">زمان</a><a href="#research">توێژینەوە</a><a href="#zhir">Zhir AI</a><a href="#community">کۆمەڵگە</a>
+</nav>
+<div class="actions"><button class="circle" aria-label="گەڕان">⌕</button><button class="circle" aria-label="شەو">◐</button><a class="btn" href="account.html">چوونەژوورەوە</a><a class="btn main" href="account.html">هەژمار دروستکردن</a></div>
+</div>
+</header>
+
+<section class="hero" id="about"><div class="hero-art"></div><div class="wrap hero-inner">
+<div class="hero-copy">
+<span class="badge">زمانێکی کوردیی هەمیشەیی، میراتێکی بۆ داهاتوو</span>
+<h1>Kurdana</h1>
+<div class="kur">ماڵی زمان، میرات و کەلتووری کوردی</div>
+<p>سەکۆیەکی گەورە بۆ پڕۆفایلی نووسەر، توێژینەوە، فێربوون و بەشداریکردن لە زمان، ئەدەبیات، مێژوو و ناسنامەی کوردی.</p>
+<form class="search" onsubmit="return false"><input aria-label="گەڕان" placeholder="گەڕان لە کتێب، وشە، دەق، دەستنووس، دەمەنگ و ..."><button>گەڕان</button></form>
+<div class="quick"><span>کتێب</span><span>وشە</span><span>دەستنووس</span><span>شیعر واز</span><span>مێژوو</span><span>کۆڕانی</span><span>نەخشە</span></div>
+</div></div></section>
+
+<section class="stats"><div class="wrap"><div class="stat-grid">
+<div class="stat"><b>١٢,٤٥٠+</b><small>کتێب</small></div><div class="stat"><b>٣٥٠,٠٠٠+</b><small>دەق و بەڵگەنامە</small></div><div class="stat"><b>٨,٢٠٠+</b><small>دەنگ و گۆرانی</small></div><div class="stat"><b>١,٥٠٠+</b><small>بەشداربووی چالاک</small></div><div class="stat"><b>٢,٣٠٠+</b><small>توێژینەوە و توێژەر</small></div><div class="stat"><b>٧٥+</b><small>شیوەزار و ناوچە</small></div>
+</div></div></section>
+
+<section class="section" id="sections"><div class="wrap"><div class="title"><h2>بەشە سەرەکییەکان</h2><p>گشتە دنیای زانیاری و ناسنامەی کوردی لە یەک سەکۆدا</p></div>
+<div class="cards">
+<a class="card" href="search.html"><div class="card-img"><img src="assets/card-library.png" alt="کتێبخانە"></div><div class="card-body"><b>کتێبخانە</b><small>هەزاران کتێب و دەق</small></div></a>
+<a class="card" href="dictionary.html"><div class="card-img"><img src="assets/card-language.png" alt="زمان"></div><div class="card-body"><b>زمان</b><small>وشە، ڕێزمان، شیوەزار</small></div></a>
+<a class="card" href="#history"><div class="card-img"><img src="assets/card-history.png" alt="مێژوو"></div><div class="card-body"><b>مێژوو</b><small>لە ڕابردوو بۆ ئێستا</small></div></a>
+<a class="card" href="#culture"><div class="card-img"><img src="assets/card-culture.png" alt="کەلتوور"></div><div class="card-body"><b>کەلتوور</b><small>دەنگ، گۆرانی، فولکلۆر</small></div></a>
+<a class="card" href="#map"><div class="card-img"><img src="assets/card-map.png" alt="نەخشە"></div><div class="card-body"><b>نەخشە</b><small>کوردستان لە نەخشەدا</small></div></a>
+<a class="card" id="zhir" href="zhir.html"><div class="card-img"><img src="assets/card-ai.png" alt="Zhir AI"></div><div class="card-body"><b>Zhir AI</b><small>یارمەتی‌دەری ژیرەکی کوردی</small></div></a>
+<a class="card" id="community" href="#community-section"><div class="card-img"><img src="assets/card-community.png" alt="کۆمەڵگە"></div><div class="card-body"><b>کۆمەڵگە</b><small>بەشداری و پەیوەندی</small></div></a>
+</div></div></section>
+
+<section class="section" id="history"><div class="wrap split" id="research">
+<div class="panel dark"><span class="badge">Zhir AI</span><h3>ژیر — هاوڕێی زمانی کوردی</h3><p>بنکەداتای کوردانا لە قۆناغەکانی دواتردا دەبێتە سەرچاوەی زانیاری بۆ شیکردنەوەی دەق، ڕێنووس، وشە و ڕێزمان.</p><button class="btn main">زیاتر بزانە</button></div>
+<div class="panel image"><div class="inside"><h3>کوردستان</h3><p>سەرچاوەی هەموو هێزێکە.</p><button class="btn">زیاتر بزانە</button></div></div>
+</div></section>
+
+<footer><div class="wrap foot">
+<div><h4>Kurdana</h4><p>پلاتفۆرمێکی کوردی بۆ زمان، زانیاری، میرات و کەلتوور.</p></div>
+<div><h4>بەستەری ڕاستەوخۆ</h4><a href="search.html">کتێبخانە</a><a href="#language">زمان</a><a href="#research">توێژینەوە</a><a href="#zhir">Zhir AI</a></div>
+<div><h4>یارمەتی</h4><a href="#">پرسیارە باوەکان</a><a href="#">ڕێنمایی بەکارهێنەر</a><a href="#">ڕاپۆرتکردنی کێشە</a></div>
+<div><h4>کوردانا</h4><a href="#">دەربارەی ئێمە</a><a href="#">یاساکان و مەرجەکان</a><a href="#">پاراستنی تایبەتمەندی</a></div>
+</div><div class="wrap copy">© Kurdana — هەموو مافەکان پارێزراون.</div></footer>
+</body>
+</html>
