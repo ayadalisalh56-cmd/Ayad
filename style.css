@@ -839,3 +839,365 @@ footer{background:#0a3d32;color:#e8eee9;display:grid;grid-template-columns:2fr r
     grid-template-columns:1fr;
   }
 }
+/* =========================================================
+   Kurdana Library — Frontend
+   ========================================================= */
+
+(() => {
+  "use strict";
+
+  const defaultBooks = [
+    {
+      id: "book-001",
+      type: "book",
+      category: "ئەدەبیات",
+      title: "مێژووی ئەدەبی کوردی",
+      author: "د. هێمن مەعروف",
+      year: "٢٠٢٦",
+      description: "سەرچاوەیەکی نموونە بۆ مێژوو و گەشەی ئەدەبی کوردی.",
+      file: ""
+    },
+    {
+      id: "book-002",
+      type: "book",
+      category: "زمانەوانی",
+      title: "ڕێزمانی کوردی",
+      author: "د. کامەران عەزیز",
+      year: "٢٠٢٥",
+      description: "بنەماکانی ڕێزمان، مۆرفۆلۆژی و پێکهاتەی ڕستەی کوردی.",
+      file: ""
+    },
+    {
+      id: "book-003",
+      type: "linguistics",
+      category: "زمانەوانی",
+      title: "مۆرفۆلۆژی لە زمانی کوردیدا",
+      author: "د. کامەران عەزیز",
+      year: "٢٠٢٤",
+      description: "توێژینەوەیەک لە پێکهاتەی وشە و مۆرفیمەکانی زمانی کوردی.",
+      file: ""
+    },
+    {
+      id: "book-004",
+      type: "poem",
+      category: "شیعر",
+      title: "لە سەدەی دوورەوە",
+      author: "جەلال تەیباری",
+      year: "٢٠٢٦",
+      description: "کۆمەڵە شیعرێکی نموونە بۆ کتێبخانەی ئەدەبی Kurdana.",
+      file: ""
+    },
+    {
+      id: "book-005",
+      type: "article",
+      category: "توێژینەوە",
+      title: "سینتاکسی زمانی کوردی",
+      author: "د. ئارام محەمەد",
+      year: "٢٠٢٥",
+      description: "پێکهاتەی ڕستە و پەیوەندییە سینتاکسییەکان.",
+      file: ""
+    },
+    {
+      id: "book-006",
+      type: "linguistics",
+      category: "فۆنۆلۆژی",
+      title: "فۆنەتیک و فۆنۆلۆژیی کوردی",
+      author: "د. سامان عومەر",
+      year: "٢٠٢٤",
+      description: "دەنگ، پیت، سیلاب و بنەماکانی سیستەمی دەنگی.",
+      file: ""
+    }
+  ];
+
+  const STORAGE_KEY = "kurdana_library_books";
+
+  const getBooks = () => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+
+      if (!saved) {
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify(defaultBooks)
+        );
+
+        return [...defaultBooks];
+      }
+
+      return JSON.parse(saved);
+    } catch {
+      return [...defaultBooks];
+    }
+  };
+
+  const saveBooks = (books) => {
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(books)
+    );
+  };
+
+  const typeName = (type) => {
+    const names = {
+      book: "کتێب",
+      article: "وتار",
+      poem: "شیعر",
+      linguistics: "زمانەوانی"
+    };
+
+    return names[type] || "سەرچاوە";
+  };
+
+  const renderLibrary = () => {
+    const grid = document.getElementById("libraryGrid");
+    const empty = document.getElementById("libraryEmpty");
+
+    if (!grid) return;
+
+    const search =
+      document
+        .getElementById("librarySearch")
+        ?.value
+        .trim()
+        .toLowerCase() || "";
+
+    const activeFilter =
+      document.querySelector(
+        ".library-filter.active"
+      )?.dataset.libraryFilter || "all";
+
+    const books = getBooks();
+
+    const filtered = books.filter((book) => {
+      const matchesFilter =
+        activeFilter === "all" ||
+        book.type === activeFilter;
+
+      const haystack = [
+        book.title,
+        book.author,
+        book.category,
+        book.description
+      ]
+        .join(" ")
+        .toLowerCase();
+
+      return matchesFilter && haystack.includes(search);
+    });
+
+    grid.innerHTML = "";
+
+    filtered.forEach((book) => {
+      const card = document.createElement("article");
+
+      card.className = "library-card";
+
+      card.innerHTML = `
+        <div class="library-cover ${book.type}-cover">
+          <div class="library-cover-inner">
+            <b>${escapeHtml(book.title)}</b>
+            <small>${escapeHtml(book.author)}</small>
+          </div>
+        </div>
+
+        <div class="library-card-body">
+          <span class="library-badge">
+            ${escapeHtml(typeName(book.type))}
+          </span>
+
+          <h3>${escapeHtml(book.title)}</h3>
+
+          <div class="library-author">
+            ✍ ${escapeHtml(book.author)}
+          </div>
+
+          <p class="library-description">
+            ${escapeHtml(book.description)}
+          </p>
+
+          <div class="library-meta">
+            <span>${escapeHtml(book.category)}</span>
+            <span>${escapeHtml(book.year)}</span>
+          </div>
+
+          <div class="library-actions">
+            <button
+              class="library-read"
+              data-library-read="${escapeHtml(book.id)}">
+              📖 خوێندنەوە
+            </button>
+
+            <button
+              class="library-save"
+              data-library-save="${escapeHtml(book.id)}">
+              🔖 پاشەکەوت
+            </button>
+          </div>
+        </div>
+      `;
+
+      grid.appendChild(card);
+    });
+
+    if (empty) {
+      empty.hidden = filtered.length !== 0;
+    }
+
+    updateLibraryStats(books);
+  };
+
+  const updateLibraryStats = (books) => {
+    const total = document.getElementById("libraryTotal");
+    const booksCount = document.getElementById("libraryBooks");
+    const articles = document.getElementById("libraryArticles");
+    const poems = document.getElementById("libraryPoems");
+
+    if (total) total.textContent = books.length;
+
+    if (booksCount) {
+      booksCount.textContent =
+        books.filter((x) => x.type === "book").length;
+    }
+
+    if (articles) {
+      articles.textContent =
+        books.filter((x) => x.type === "article").length;
+    }
+
+    if (poems) {
+      poems.textContent =
+        books.filter((x) => x.type === "poem").length;
+    }
+  };
+
+  const escapeHtml = (value) => {
+    return String(value ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  };
+
+  document.addEventListener("input", (event) => {
+    if (event.target.id === "librarySearch") {
+      renderLibrary();
+    }
+  });
+
+  document.addEventListener("click", (event) => {
+
+    const filter =
+      event.target.closest("[data-library-filter]");
+
+    if (filter) {
+      document
+        .querySelectorAll(".library-filter")
+        .forEach((button) =>
+          button.classList.remove("active")
+        );
+
+      filter.classList.add("active");
+
+      renderLibrary();
+
+      return;
+    }
+
+    const readButton =
+      event.target.closest("[data-library-read]");
+
+    if (readButton) {
+      const id = readButton.dataset.libraryRead;
+      const book = getBooks().find(
+        (item) => item.id === id
+      );
+
+      if (!book) return;
+
+      if (book.file) {
+        window.open(book.file, "_blank");
+      } else {
+        window.kurdanaToast(
+          "ئەم کتێبە هێشتا فایلێکی خوێندنەوەی نییە."
+        );
+      }
+
+      return;
+    }
+
+    const saveButton =
+      event.target.closest("[data-library-save]");
+
+    if (saveButton) {
+      const id = saveButton.dataset.librarySave;
+
+      let saved =
+        JSON.parse(
+          localStorage.getItem(
+            "kurdana_saved_books"
+          ) || "[]"
+        );
+
+      if (!saved.includes(id)) {
+        saved.push(id);
+
+        localStorage.setItem(
+          "kurdana_saved_books",
+          JSON.stringify(saved)
+        );
+
+        window.kurdanaToast(
+          "کتێبەکە پاشەکەوت کرا."
+        );
+      } else {
+        window.kurdanaToast(
+          "ئەم کتێبە پێشتر پاشەکەوت کراوە."
+        );
+      }
+    }
+  });
+
+  window.kurdanaAddBook = (book) => {
+    const books = getBooks();
+
+    const newBook = {
+      id:
+        "book-" +
+        Date.now(),
+
+      type: book.type || "book",
+      category: book.category || "گشتی",
+      title: book.title || "بێ ناونیشان",
+      author: book.author || "نەناسراو",
+      year: book.year || "—",
+      description: book.description || "",
+      file: book.file || ""
+    };
+
+    books.unshift(newBook);
+
+    saveBooks(books);
+
+    renderLibrary();
+
+    window.kurdanaToast(
+      "کتێبەکە بە سەرکەوتوویی زیاد کرا."
+    );
+  };
+
+  window.kurdanaLibraryRefresh =
+    renderLibrary;
+
+  if (
+    document.readyState === "loading"
+  ) {
+    document.addEventListener(
+      "DOMContentLoaded",
+      renderLibrary
+    );
+  } else {
+    renderLibrary();
+  }
+
+})();
