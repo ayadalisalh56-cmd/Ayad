@@ -2158,3 +2158,543 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 })();
+/* =====================================================
+   Kurdana Library — Stage 3
+   Smart Search / Filter / Sort / Favorites
+===================================================== */
+
+(() => {
+  "use strict";
+
+
+  const searchInput =
+    document.getElementById("librarySmartSearch");
+
+  const clearSearch =
+    document.getElementById("libraryClearSearch");
+
+  const sortSelect =
+    document.getElementById("librarySort");
+
+  const resultsInfo =
+    document.getElementById("libraryResultsInfo");
+
+  const emptyState =
+    document.getElementById("libraryEmptyState");
+
+  const resetButton =
+    document.getElementById("libraryResetFilters");
+
+  const filterButtons =
+    document.querySelectorAll(
+      ".library-filter-btn-stage3"
+    );
+
+  const bookGrid =
+    document.getElementById("libraryBooksGrid");
+
+
+  if (!bookGrid) return;
+
+
+  let currentFilter = "all";
+  let currentSearch = "";
+  let currentSort = "default";
+
+
+  /* -----------------------------------------------------
+     Helpers
+  ----------------------------------------------------- */
+
+  function normalizeText(text) {
+
+    return String(text || "")
+      .toLowerCase()
+      .replace(/ي/g, "ی")
+      .replace(/ى/g, "ی")
+      .replace(/ك/g, "ک")
+      .replace(/\s+/g, " ")
+      .trim();
+
+  }
+
+
+  function getSavedBooks() {
+
+    try {
+
+      return JSON.parse(
+        localStorage.getItem(
+          "kurdanaSavedBooks"
+        ) || "[]"
+      );
+
+    } catch {
+
+      return [];
+
+    }
+
+  }
+
+
+  function getBookCards() {
+
+    return Array.from(
+      bookGrid.querySelectorAll(
+        ".library-book-card"
+      )
+    );
+
+  }
+
+
+  /* -----------------------------------------------------
+     Search
+  ----------------------------------------------------- */
+
+  function matchesSearch(card) {
+
+    if (!currentSearch) {
+      return true;
+    }
+
+    const title =
+      card.querySelector("h3")?.textContent || "";
+
+    const author =
+      card.querySelector(".library-author")?.textContent || "";
+
+    const description =
+      card.querySelector(".library-description")?.textContent || "";
+
+    const type =
+      card.querySelector(".library-type")?.textContent || "";
+
+    const searchableText =
+      normalizeText(
+        `${title} ${author} ${description} ${type}`
+      );
+
+    return searchableText.includes(
+      normalizeText(currentSearch)
+    );
+
+  }
+
+
+  /* -----------------------------------------------------
+     Category
+  ----------------------------------------------------- */
+
+  function matchesFilter(card) {
+
+    if (currentFilter === "all") {
+      return true;
+    }
+
+
+    if (currentFilter === "favorites") {
+
+      const savedBooks =
+        getSavedBooks();
+
+      const bookId =
+        card.querySelector(
+          "[data-save-book]"
+        )?.dataset.saveBook;
+
+      return (
+        bookId &&
+        savedBooks.includes(bookId)
+      );
+
+    }
+
+
+    const title =
+      normalizeText(
+        card.querySelector("h3")?.textContent
+      );
+
+    const type =
+      normalizeText(
+        card.querySelector(".library-type")?.textContent
+      );
+
+    const author =
+      normalizeText(
+        card.querySelector(".library-author")?.textContent
+      );
+
+    const description =
+      normalizeText(
+        card.querySelector(".library-description")?.textContent
+      );
+
+    const filter =
+      normalizeText(currentFilter);
+
+
+    return (
+      title.includes(filter) ||
+      type.includes(filter) ||
+      author.includes(filter) ||
+      description.includes(filter)
+    );
+
+  }
+
+
+  /* -----------------------------------------------------
+     Sort
+  ----------------------------------------------------- */
+
+  function sortCards(cards) {
+
+    if (currentSort === "default") {
+      return cards;
+    }
+
+
+    return cards.sort((a, b) => {
+
+      const titleA =
+        normalizeText(
+          a.querySelector("h3")?.textContent
+        );
+
+      const titleB =
+        normalizeText(
+          b.querySelector("h3")?.textContent
+        );
+
+
+      if (
+        currentSort === "az"
+      ) {
+
+        return titleA.localeCompare(
+          titleB,
+          "ku"
+        );
+
+      }
+
+
+      if (
+        currentSort === "za"
+      ) {
+
+        return titleB.localeCompare(
+          titleA,
+          "ku"
+        );
+
+      }
+
+
+      /*
+       * The demo cards currently use
+       * 2026 as their year.
+       *
+       * This prepares the system for
+       * real metadata later.
+       */
+
+      const yearA =
+        parseInt(
+          a.querySelector(
+            ".library-meta span:last-child"
+          )?.textContent
+          || "0",
+          10
+        );
+
+      const yearB =
+        parseInt(
+          b.querySelector(
+            ".library-meta span:last-child"
+          )?.textContent
+          || "0",
+          10
+        );
+
+
+      if (
+        currentSort === "newest"
+      ) {
+
+        return yearB - yearA;
+
+      }
+
+
+      if (
+        currentSort === "oldest"
+      ) {
+
+        return yearA - yearB;
+
+      }
+
+
+      return 0;
+
+    });
+
+  }
+
+
+  /* -----------------------------------------------------
+     Apply
+  ----------------------------------------------------- */
+
+  function applyLibraryFilters() {
+
+    let cards =
+      getBookCards();
+
+
+    /*
+     * First filter
+     */
+
+    cards.forEach((card) => {
+
+      const searchMatch =
+        matchesSearch(card);
+
+      const filterMatch =
+        matchesFilter(card);
+
+      const visible =
+        searchMatch &&
+        filterMatch;
+
+      card.classList.toggle(
+        "library-hidden-stage3",
+        !visible
+      );
+
+    });
+
+
+    /*
+     * Then sort
+     */
+
+    cards =
+      sortCards(cards);
+
+
+    cards.forEach((card) => {
+
+      bookGrid.appendChild(card);
+
+    });
+
+
+    /*
+     * Visible count
+     */
+
+    const visibleCount =
+      cards.filter(
+        card =>
+          !card.classList.contains(
+            "library-hidden-stage3"
+          )
+      ).length;
+
+
+    if (resultsInfo) {
+
+      resultsInfo.textContent =
+        `${visibleCount} ئەنجام دۆزرایەوە`;
+
+    }
+
+
+    if (emptyState) {
+
+      emptyState.hidden =
+        visibleCount !== 0;
+
+    }
+
+
+    if (clearSearch) {
+
+      clearSearch.style.display =
+        currentSearch
+          ? "block"
+          : "none";
+
+    }
+
+  }
+
+
+  /* -----------------------------------------------------
+     Search Input
+  ----------------------------------------------------- */
+
+  searchInput?.addEventListener(
+    "input",
+    (event) => {
+
+      currentSearch =
+        event.target.value;
+
+      applyLibraryFilters();
+
+    }
+  );
+
+
+  /* -----------------------------------------------------
+     Clear Search
+  ----------------------------------------------------- */
+
+  clearSearch?.addEventListener(
+    "click",
+    () => {
+
+      if (searchInput) {
+        searchInput.value = "";
+      }
+
+      currentSearch = "";
+
+      applyLibraryFilters();
+
+      searchInput?.focus();
+
+    }
+  );
+
+
+  /* -----------------------------------------------------
+     Filter Buttons
+  ----------------------------------------------------- */
+
+  filterButtons.forEach((button) => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        currentFilter =
+          button.dataset.libraryFilter
+          || "all";
+
+
+        filterButtons.forEach(
+          (item) => {
+
+            item.classList.toggle(
+              "active",
+              item === button
+            );
+
+          }
+        );
+
+
+        applyLibraryFilters();
+
+      }
+    );
+
+  });
+
+
+  /* -----------------------------------------------------
+     Sort
+  ----------------------------------------------------- */
+
+  sortSelect?.addEventListener(
+    "change",
+    (event) => {
+
+      currentSort =
+        event.target.value;
+
+      applyLibraryFilters();
+
+    }
+  );
+
+
+  /* -----------------------------------------------------
+     Reset
+  ----------------------------------------------------- */
+
+  resetButton?.addEventListener(
+    "click",
+    () => {
+
+      currentFilter = "all";
+      currentSearch = "";
+      currentSort = "default";
+
+
+      if (searchInput) {
+        searchInput.value = "";
+      }
+
+
+      if (sortSelect) {
+        sortSelect.value = "default";
+      }
+
+
+      filterButtons.forEach(
+        (button) => {
+
+          button.classList.toggle(
+            "active",
+            button.dataset.libraryFilter === "all"
+          );
+
+        }
+      );
+
+
+      applyLibraryFilters();
+
+    }
+  );
+
+
+  /* -----------------------------------------------------
+     Update favorites filter when saving
+     -----------------------------------------------------
+     ئەگەر لە قۆناغی ٢ ـدا favorite بگۆڕدرێت،
+     ئەنجامەکانی دڵخوازەکانیش نوێ دەکرێنەوە.
+  ----------------------------------------------------- */
+
+  window.addEventListener(
+    "storage",
+    (event) => {
+
+      if (
+        event.key === "kurdanaSavedBooks"
+      ) {
+
+        applyLibraryFilters();
+
+      }
+
+    }
+  );
+
+
+  /*
+   * Initial state
+   */
+
+  applyLibraryFilters();
+
+})();
