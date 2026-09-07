@@ -2706,7 +2706,7 @@ document.addEventListener("DOMContentLoaded", () => {
 (() => {
   "use strict";
 
-  "book-7": {
+  "book-1": {
     title: "وشەسازی",
     author: "نەریمان عەبدوڵڵا خۆشناو",
     type: "کتێب",
