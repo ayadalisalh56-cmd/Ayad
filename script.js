@@ -1518,3 +1518,44 @@ document
   ?.addEventListener("click", () => {
     location.reload();
   });
+/* =========================================================
+   Kurdana — Library Full Navigation Fix
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  function openLibrary() {
+    if (typeof window.kurdanaGo === "function") {
+      window.kurdanaGo("libraryPage");
+    }
+
+    history.pushState(
+      null,
+      "",
+      "#libraryPage"
+    );
+  }
+
+  // دوگمەی «بینین ←» لە کارتێکی کتێبخانە
+  const libraryButton = document.querySelector(
+    "#library .link-btn"
+  );
+
+  if (libraryButton) {
+    libraryButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      openLibrary();
+    });
+  }
+
+  // لینکەکانی کتێبخانە لە navigation
+  document.querySelectorAll(
+    'a[href="#library"]'
+  ).forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      openLibrary();
+    });
+  });
+
+});
