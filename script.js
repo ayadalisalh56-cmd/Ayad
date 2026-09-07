@@ -2698,21 +2698,27 @@ document.addEventListener("DOMContentLoaded", () => {
   applyLibraryFilters();
 
 })();
-/* =========================================================
+
+/* =====================================================
    KURDANA LIBRARY — STAGE 4
    Final Library Interaction Layer
-   ========================================================= */
+===================================================== */
 
 (() => {
   "use strict";
 
-  "book-1": {
-    title: "وشەسازی",
-    author: "نەریمان عەبدوڵڵا خۆشناو",
-    type: "کتێب",
-    description: "کتێبێک لە بواری وشەسازی و زمان",
-    pdf: "وشەسازی.pdf"
-},
+  /* -----------------------------------------------------
+     Library Books Database
+  ----------------------------------------------------- */
+
+  const LIBRARY_BOOKS = {
+
+    "book-1": {
+      title: "وشەسازی",
+      author: "نەریمان عەبدوڵڵا خۆشناو",
+      type: "کتێب",
+      description: "کتێبێک لە بواری وشەسازی و زمان.",
+      pdf: "وشەسازی.pdf"
     },
 
     "book-2": {
@@ -2720,7 +2726,7 @@ document.addEventListener("DOMContentLoaded", () => {
       author: "د. کامەران عەزیز",
       type: "وتار",
       description:
-        "توێژینەوەیەک لەسەر پێکهاتەی وشە، ڕەگ، پاشگر، پێشگر و گۆڕانکارییە مۆرفۆلۆژییەکان.",
+        "توێژینەوەیەک لەسەر پێکهاتەی وشە، ڕەگ، پاشگر، پێشگر و گۆڕانکارییە مۆرفۆلۆژییەکان."
     },
 
     "book-3": {
@@ -2728,7 +2734,7 @@ document.addEventListener("DOMContentLoaded", () => {
       author: "جەلال تەیباری",
       type: "شیعر",
       description:
-        "کۆمەڵێک شیعری کوردی لەگەڵ شێواز و وێنەسازیی ئەدەبی.",
+        "کۆمەڵێک شیعری کوردی لەگەڵ شێواز و وێنەسازیی ئەدەبی."
     },
 
     "book-4": {
@@ -2736,7 +2742,7 @@ document.addEventListener("DOMContentLoaded", () => {
       author: "Kurdana",
       type: "کتێب",
       description:
-        "سەرچاوەیەکی فێرکاری بۆ ناسینی بنەماکانی ڕێزمانی زمانی کوردی.",
+        "سەرچاوەیەکی فێرکاری بۆ ناسینی بنەماکانی ڕێزمانی زمانی کوردی."
     },
 
     "book-5": {
@@ -2744,7 +2750,7 @@ document.addEventListener("DOMContentLoaded", () => {
       author: "Kurdana Research",
       type: "توێژینەوە",
       description:
-        "پێشەکییەک بۆ زمانەوانی، مۆرفۆلۆژی، سینتاکس و بواری توێژینەوەی زمان.",
+        "پێشەکییەک بۆ زمانەوانی، مۆرفۆلۆژی، سینتاکس و بواری توێژینەوەی زمان."
     },
 
     "book-6": {
@@ -2752,10 +2758,423 @@ document.addEventListener("DOMContentLoaded", () => {
       author: "Kurdana",
       type: "کتێب",
       description:
-        "کۆمەڵە وشە و زانیاریی زمانەوانی بۆ بەکارهێنانی خوێنەر و توێژەر.",
-    },
+        "کۆمەڵە وشە و زانیاریی زمانەوانی بۆ بەکارهێنانی خوێنەر و توێژەر."
+    }
+
   };
 
+
+  /* -----------------------------------------------------
+     Storage
+  ----------------------------------------------------- */
+
+  const STORAGE_KEY = "kurdanaSavedBooks";
+
+
+  function getSavedBooks() {
+    try {
+      return JSON.parse(
+        localStorage.getItem(STORAGE_KEY) || "[]"
+      );
+    } catch {
+      return [];
+    }
+  }
+
+
+  function saveBooks(books) {
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(books)
+    );
+  }
+
+
+  function isSaved(bookId) {
+    return getSavedBooks().includes(bookId);
+  }
+
+
+  function toggleSaved(bookId) {
+    const saved = getSavedBooks();
+
+    if (saved.includes(bookId)) {
+      saveBooks(
+        saved.filter((id) => id !== bookId)
+      );
+
+      return false;
+    }
+
+    saved.push(bookId);
+    saveBooks(saved);
+
+    return true;
+  }
+
+
+  /* -----------------------------------------------------
+     Go To Library
+  ----------------------------------------------------- */
+
+  function goToLibrary() {
+
+    if (typeof window.kurdanaGo === "function") {
+      window.kurdanaGo("libraryPage");
+    }
+
+    history.pushState(
+      null,
+      "",
+      "#libraryPage"
+    );
+
+  }
+
+
+  /* -----------------------------------------------------
+     Open Book
+  ----------------------------------------------------- */
+
+  function openBook(bookId) {
+
+    const book = LIBRARY_BOOKS[bookId];
+
+    if (!book) {
+
+      if (
+        typeof window.kurdanaToast === "function"
+      ) {
+        window.kurdanaToast(
+          "ئەم کتێبە نەدۆزرایەوە."
+        );
+      }
+
+      return;
+    }
+
+
+    const title =
+      document.getElementById("bookTitle");
+
+    const author =
+      document.getElementById("bookAuthor");
+
+    const type =
+      document.getElementById("bookType");
+
+    const description =
+      document.getElementById("bookDescription");
+
+    const saveButton =
+      document.getElementById("bookSaveBtn");
+
+
+    if (title) {
+      title.textContent = book.title;
+    }
+
+
+    if (author) {
+      author.textContent =
+        "نووسەر: " + book.author;
+    }
+
+
+    if (type) {
+      type.textContent = book.type;
+    }
+
+
+    if (description) {
+      description.textContent =
+        book.description;
+    }
+
+
+    if (saveButton) {
+
+      saveButton.dataset.bookId = bookId;
+
+      const saved = isSaved(bookId);
+
+      saveButton.textContent =
+        saved
+          ? "♥ پاشەکەوتکراوە"
+          : "♡ پاشەکەوتکردن";
+
+      saveButton.classList.toggle(
+        "saved",
+        saved
+      );
+
+      saveButton.setAttribute(
+        "aria-pressed",
+        String(saved)
+      );
+
+    }
+
+
+    if (typeof window.kurdanaGo === "function") {
+
+      window.kurdanaGo("bookPage");
+
+    } else {
+
+      document
+        .querySelectorAll(".page-view")
+        .forEach((page) =>
+          page.classList.remove("active")
+        );
+
+      document
+        .getElementById("bookPage")
+        ?.classList.add("active");
+
+      document
+        .getElementById("home")
+        ?.style.setProperty(
+          "display",
+          "none"
+        );
+
+    }
+
+
+    history.pushState(
+      null,
+      "",
+      "#bookPage"
+    );
+
+  }
+
+
+  /* -----------------------------------------------------
+     Open Book Buttons
+  ----------------------------------------------------- */
+
+  document.addEventListener(
+    "click",
+    (event) => {
+
+      const button =
+        event.target.closest(
+          ".library-view-btn"
+        );
+
+      if (!button) return;
+
+      event.preventDefault();
+
+      const bookId =
+        button.dataset.bookId;
+
+      if (!bookId) return;
+
+      openBook(bookId);
+
+    }
+  );
+
+
+  /* -----------------------------------------------------
+     Save / Bookmark
+  ----------------------------------------------------- */
+
+  document.addEventListener(
+    "click",
+    (event) => {
+
+      const button =
+        event.target.closest(
+          ".library-save-btn, #bookSaveBtn"
+        );
+
+      if (!button) return;
+
+      event.preventDefault();
+
+      const bookId =
+        button.dataset.bookId;
+
+      if (!bookId) return;
+
+      const saved =
+        toggleSaved(bookId);
+
+
+      button.textContent =
+        saved
+          ? "♥ پاشەکەوتکراوە"
+          : "♡ پاشەکەوتکردن";
+
+
+      button.classList.toggle(
+        "saved",
+        saved
+      );
+
+
+      button.setAttribute(
+        "aria-pressed",
+        String(saved)
+      );
+
+
+      if (
+        typeof window.kurdanaToast === "function"
+      ) {
+
+        window.kurdanaToast(
+          saved
+            ? "کتێبەکە پاشەکەوت کرا."
+            : "کتێبەکە لە پاشەکەوتکراوەکان سڕایەوە."
+        );
+
+      }
+
+    }
+  );
+
+
+  /* -----------------------------------------------------
+     Back To Library
+  ----------------------------------------------------- */
+
+  document.addEventListener(
+    "click",
+    (event) => {
+
+      const button =
+        event.target.closest(
+          "#bookBackToLibrary"
+        );
+
+      if (!button) return;
+
+      event.preventDefault();
+
+      goToLibrary();
+
+    }
+  );
+
+
+  /* -----------------------------------------------------
+     Update Bookmark Buttons
+  ----------------------------------------------------- */
+
+  function updateBookmarkButtons() {
+
+    document
+      .querySelectorAll(
+        ".library-save-btn"
+      )
+      .forEach((button) => {
+
+        const bookId =
+          button.dataset.bookId;
+
+        if (!bookId) return;
+
+        const saved =
+          isSaved(bookId);
+
+        button.textContent =
+          saved ? "♥" : "♡";
+
+        button.classList.toggle(
+          "saved",
+          saved
+        );
+
+        button.setAttribute(
+          "aria-pressed",
+          String(saved)
+        );
+
+      });
+
+  }
+
+
+  updateBookmarkButtons();
+
+
+  /* -----------------------------------------------------
+     Publish From Library
+  ----------------------------------------------------- */
+
+  document
+    .getElementById(
+      "newPublishFromLibrary"
+    )
+    ?.addEventListener(
+      "click",
+      () => {
+
+        if (
+          typeof window.kurdanaGo === "function"
+        ) {
+
+          window.kurdanaGo(
+            "publishPage"
+          );
+
+        }
+
+      }
+    );
+
+
+  /* -----------------------------------------------------
+     Hash Support
+  ----------------------------------------------------- */
+
+  if (
+    location.hash === "#libraryPage"
+  ) {
+
+    setTimeout(() => {
+
+      if (
+        typeof window.kurdanaGo === "function"
+      ) {
+
+        window.kurdanaGo(
+          "libraryPage"
+        );
+
+      }
+
+    }, 0);
+
+  }
+
+
+  /* -----------------------------------------------------
+     Public API
+  ----------------------------------------------------- */
+
+  window.KurdanaLibrary = {
+
+    books: LIBRARY_BOOKS,
+
+    openBook,
+
+    goToLibrary,
+
+    getSavedBooks,
+
+    isSaved,
+
+    toggleSaved
+
+  };
+
+})();
   const STORAGE_KEY = "kurdana_saved_books";
 
   const getSavedBooks = () => {
