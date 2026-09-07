@@ -450,6 +450,157 @@
 
   </div>
 </section>
+    <!-- =====================================================
+     Kurdana Library — Stage 3
+     Search / Filter / Sort
+===================================================== -->
+
+<div class="library-controls-stage3">
+
+  <div class="library-search-stage3">
+
+    <span class="library-search-icon">⌕</span>
+
+    <input
+      type="search"
+      id="librarySmartSearch"
+      placeholder="گەڕان بە ناوی کتێب، نووسەر یان وشە..."
+      autocomplete="off"
+    >
+
+    <button
+      type="button"
+      id="libraryClearSearch"
+      aria-label="پاککردنەوەی گەڕان"
+    >
+      ×
+    </button>
+
+  </div>
+
+
+  <div class="library-filter-row-stage3">
+
+    <button
+      type="button"
+      class="library-filter-btn-stage3 active"
+      data-library-filter="all"
+    >
+      هەموو
+    </button>
+
+    <button
+      type="button"
+      class="library-filter-btn-stage3"
+      data-library-filter="کتێب"
+    >
+      کتێب
+    </button>
+
+    <button
+      type="button"
+      class="library-filter-btn-stage3"
+      data-library-filter="شیعر"
+    >
+      شیعر
+    </button>
+
+    <button
+      type="button"
+      class="library-filter-btn-stage3"
+      data-library-filter="زمانەوانی"
+    >
+      زمانەوانی
+    </button>
+
+    <button
+      type="button"
+      class="library-filter-btn-stage3"
+      data-library-filter="ئەدەبیات"
+    >
+      ئەدەبیات
+    </button>
+
+    <button
+      type="button"
+      class="library-filter-btn-stage3"
+      data-library-filter="favorites"
+    >
+      ♥ دڵخوازەکان
+    </button>
+
+  </div>
+
+
+  <div class="library-sort-stage3">
+
+    <label for="librarySort">
+      ڕیزکردن:
+    </label>
+
+    <select id="librarySort">
+
+      <option value="default">
+        بنەڕەتی
+      </option>
+
+      <option value="newest">
+        نوێترین
+      </option>
+
+      <option value="oldest">
+        کۆنترین
+      </option>
+
+      <option value="az">
+        ناو A → Z
+      </option>
+
+      <option value="za">
+        ناو Z → A
+      </option>
+
+    </select>
+
+  </div>
+
+</div>
+
+
+<div
+  class="library-results-stage3"
+  id="libraryResultsInfo"
+>
+  ٦ ئەنجام دۆزرایەوە
+</div>
+
+
+<div
+  class="library-empty-stage3"
+  id="libraryEmptyState"
+  hidden
+>
+
+  <div class="library-empty-icon">
+    📚
+  </div>
+
+  <h3>
+    هیچ کتێبێک نەدۆزرایەوە
+  </h3>
+
+  <p>
+    وشەی گەڕان یان فلتەرەکەت بگۆڕە و دووبارە هەوڵ بدە.
+  </p>
+
+  <button
+    type="button"
+    id="libraryResetFilters"
+  >
+    پاککردنەوەی فلتەرەکان
+  </button>
+
+</div>
 <!-- =====================================================
      Kurdana Library — Stage 2
      Book Details Page
