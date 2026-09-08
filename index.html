@@ -19,589 +19,8 @@
       </div>
     </div>
 
-    <section class="page-view" id="libraryPage">
-  <div class="library-wrap">
-
-    <div class="library-hero">
-      <div>
-        <span class="library-kicker">Kurdana Library</span>
-        <h1>کتێبخانەی کوردی</h1>
-        <p>کتێب، وتار، شیعر و سەرچاوە زمانەوانییەکان لە یەک شوێن.</p>
-      </div>
-
-      <button class="green-btn" id="newPublishFromLibrary">
-        + بڵاوکردنەوە
-      </button>
-    </div>
-
-    <div class="library-tools">
-
-      <div class="library-search">
-        🔍
-        <input
-          id="librarySearch"
-          type="search"
-          placeholder="گەڕان بە ناوی کتێب، نووسەر یان بابەت..."
-        >
-      </div>
-
-      <div class="library-filters" id="libraryFilters">
-        <button class="library-filter active" data-library-filter="all">
-          هەموو
-        </button>
-        <button class="library-filter" data-library-filter="book">
-          کتێب
-        </button>
-        <button class="library-filter" data-library-filter="article">
-          وتار
-        </button>
-        <button class="library-filter" data-library-filter="poem">
-          شیعر
-        </button>
-        <button class="library-filter" data-library-filter="linguistics">
-          زمانەوانی
-        </button>
-      </div>
-
-    </div>
-
-    <div class="library-stats">
-      <div>
-        <strong id="libraryTotal">0</strong>
-        <span>سەرچاوە</span>
-      </div>
-      <div>
-        <strong id="libraryBooks">0</strong>
-        <span>کتێب</span>
-      </div>
-      <div>
-        <strong id="libraryArticles">0</strong>
-        <span>وتار</span>
-      </div>
-      <div>
-        <strong id="libraryPoems">0</strong>
-        <span>شیعر</span>
-      </div>
-    </div>
-<!-- =====================================================
-     Kurdana Library — Stage 1
-     Book Cards
-===================================================== -->
-
-<div class="library-stage1">
-
-  <div class="library-section-head">
-    <div>
-      <span class="library-kicker">Kurdana Library</span>
-      <h2>کتێبە نوێکان</h2>
-      <p>کتێب و سەرچاوە کوردییەکان لە یەک شوێن.</p>
-    </div>
-
-    <span class="library-count">
-      ٦ کتێب
-    </span>
-  </div>
-
-  <div class="library-books-grid" id="libraryBooksGrid">
-
-    <!-- Book 1 -->
-    <article class="library-book-card" data-category="کتێب">
-
-      <div class="library-book-cover">
-        <div class="book-cover-decoration">✦</div>
-        <div class="book-cover-title">
-          مێژووی<br>ئەدەبی کوردی
-        </div>
-        <div class="book-cover-author">
-          د. هێمن مەعروف
-        </div>
-      </div>
-
-      <div class="library-book-info">
-
-        <span class="library-type">کتێب</span>
-
-        <h3>مێژووی ئەدەبی کوردی</h3>
-
-        <p class="library-author">
-          د. هێمن مەعروف
-        </p>
-
-        <p class="library-description">
-          پێداچوونەوەیەکی کورت بە مێژووی ئەدەبی کوردی،
-          سەردەمەکان و گەشەکردنی ئەدەبیات.
-        </p>
-
-        <div class="library-meta">
-          <span>📖 ٢٤٠ لاپەڕە</span>
-          <span>٢٠٢٦</span>
-        </div>
-
-        <div class="library-card-actions">
-          <button
-            class="library-view-btn"
-            data-book-id="book-1"
-          >
-            بینین ←
-          </button>
-
-          <button
-            class="library-save-btn"
-            data-save-book="book-1"
-            aria-label="پاشەکەوتکردن"
-          >
-            ♡
-          </button>
-        </div>
-
-      </div>
-    </article>
-
-
-    <!-- Book 2 -->
-    <article class="library-book-card" data-category="کتێب">
-
-      <div class="library-book-cover">
-        <div class="book-cover-decoration">❖</div>
-        <div class="book-cover-title">
-          بنەماکانی<br>زمانی کوردی
-        </div>
-        <div class="book-cover-author">
-          د. کامەران عەزیز
-        </div>
-      </div>
-
-      <div class="library-book-info">
-
-        <span class="library-type">کتێب</span>
-
-        <h3>بنەماکانی زمانی کوردی</h3>
-
-        <p class="library-author">
-          د. کامەران عەزیز
-        </p>
-
-        <p class="library-description">
-          سەرچاوەیەکی بنەڕەتی بۆ خوێندنەوەی ڕێزمان
-          و پێکهاتەی زمانی کوردی.
-        </p>
-
-        <div class="library-meta">
-          <span>📖 ٣١٠ لاپەڕە</span>
-          <span>٢٠٢٦</span>
-        </div>
-
-        <div class="library-card-actions">
-
-          <button
-            class="library-view-btn"
-            data-book-id="book-2"
-          >
-            بینین ←
-          </button>
-
-          <button
-            class="library-save-btn"
-            data-save-book="book-2"
-            aria-label="پاشەکەوتکردن"
-          >
-            ♡
-          </button>
-
-        </div>
-
-      </div>
-    </article>
-
-
-    <!-- Book 3 -->
-    <article class="library-book-card" data-category="کتێب">
-
-      <div class="library-book-cover">
-        <div class="book-cover-decoration">☼</div>
-        <div class="book-cover-title">
-          چیرۆکە<br>کوردییەکان
-        </div>
-        <div class="book-cover-author">
-          کۆکراوەی Kurdana
-        </div>
-      </div>
-
-      <div class="library-book-info">
-
-        <span class="library-type">کتێب</span>
-
-        <h3>چیرۆکە کوردییەکان</h3>
-
-        <p class="library-author">
-          کۆکراوەی Kurdana
-        </p>
-
-        <p class="library-description">
-          کۆمەڵێک چیرۆکی کوردی لە سەردەم و ناوچە
-          جیاوازەکان.
-        </p>
-
-        <div class="library-meta">
-          <span>📖 ١٨٥ لاپەڕە</span>
-          <span>٢٠٢٦</span>
-        </div>
-
-        <div class="library-card-actions">
-
-          <button
-            class="library-view-btn"
-            data-book-id="book-3"
-          >
-            بینین ←
-          </button>
-
-          <button
-            class="library-save-btn"
-            data-save-book="book-3"
-            aria-label="پاشەکەوتکردن"
-          >
-            ♡
-          </button>
-
-        </div>
-
-      </div>
-    </article>
-
-
-    <!-- Book 4 -->
-    <article class="library-book-card" data-category="کتێب">
-
-      <div class="library-book-cover">
-        <div class="book-cover-decoration">✺</div>
-        <div class="book-cover-title">
-          مۆرفۆلۆژی<br>لە کوردیدا
-        </div>
-        <div class="book-cover-author">
-          د. ئارام سەلیم
-        </div>
-      </div>
-
-      <div class="library-book-info">
-
-        <span class="library-type">کتێب</span>
-
-        <h3>مۆرفۆلۆژی لە کوردیدا</h3>
-
-        <p class="library-author">
-          د. ئارام سەلیم
-        </p>
-
-        <p class="library-description">
-          توێژینەوەیەک لەسەر پێکهاتەی وشە،
-          ڕەگ و پاشگر و پێشگرەکان.
-        </p>
-
-        <div class="library-meta">
-          <span>📖 ٢٧٥ لاپەڕە</span>
-          <span>٢٠٢٦</span>
-        </div>
-
-        <div class="library-card-actions">
-
-          <button
-            class="library-view-btn"
-            data-book-id="book-4"
-          >
-            بینین ←
-          </button>
-
-          <button
-            class="library-save-btn"
-            data-save-book="book-4"
-            aria-label="پاشەکەوتکردن"
-          >
-            ♡
-          </button>
-
-        </div>
-
-      </div>
-    </article>
-
-
-    <!-- Book 5 -->
-    <article class="library-book-card" data-category="کتێب">
-
-      <div class="library-book-cover">
-        <div class="book-cover-decoration">❋</div>
-        <div class="book-cover-title">
-          شیعری<br>کلاسیکی کوردی
-        </div>
-        <div class="book-cover-author">
-          ئارشیفی Kurdana
-        </div>
-      </div>
-
-      <div class="library-book-info">
-
-        <span class="library-type">کتێب</span>
-
-        <h3>شیعری کلاسیکی کوردی</h3>
-
-        <p class="library-author">
-          ئارشیفی Kurdana
-        </p>
-
-        <p class="library-description">
-          هەڵبژاردەیەک لە شیعرە کلاسیکییە کوردییەکان
-          و ناساندنی شاعیرەکان.
-        </p>
-
-        <div class="library-meta">
-          <span>📖 ٣٢٠ لاپەڕە</span>
-          <span>٢٠٢٦</span>
-        </div>
-
-        <div class="library-card-actions">
-
-          <button
-            class="library-view-btn"
-            data-book-id="book-5"
-          >
-            بینین ←
-          </button>
-
-          <button
-            class="library-save-btn"
-            data-save-book="book-5"
-            aria-label="پاشەکەوتکردن"
-          >
-            ♡
-          </button>
-
-        </div>
-
-      </div>
-    </article>
-
-
-    <!-- Book 6 -->
-    <article class="library-book-card" data-category="کتێب">
-
-      <div class="library-book-cover">
-        <div class="book-cover-decoration">✧</div>
-        <div class="book-cover-title">
-          ڕێنمایی<br>نووسینی کوردی
-        </div>
-        <div class="book-cover-author">
-          Kurdana
-        </div>
-      </div>
-
-      <div class="library-book-info">
-
-        <span class="library-type">کتێب</span>
-
-        <h3>ڕێنمایی نووسینی کوردی</h3>
-
-        <p class="library-author">
-          تیمی Kurdana
-        </p>
-
-        <p class="library-description">
-          ڕێنمایی بۆ نووسینی پاک و یەکگرتووی کوردی
-          و بەکارهێنانی Unicode.
-        </p>
-
-        <div class="library-meta">
-          <span>📖 ١٢٠ لاپەڕە</span>
-          <span>٢٠٢٦</span>
-        </div>
-
-        <div class="library-card-actions">
-
-          <button
-            class="library-view-btn"
-            data-book-id="book-6"
-          >
-            بینین ←
-          </button>
-
-          <button
-            class="library-save-btn"
-            data-save-book="book-6"
-            aria-label="پاشەکەوتکردن"
-          >
-            ♡
-          </button>
-
-        </div>
-
-      </div>
-    </article>
-
-  </div>
-
-</div>
-    <div class="library-grid" id="libraryGrid"></div>
-
-    <div class="library-empty" id="libraryEmpty" hidden>
-      <div>📚</div>
-      <h3>هیچ ئەنجامێک نەدۆزرایەوە</h3>
-      <p>وشەی گەڕان یان جۆری دیکە تاقی بکەرەوە.</p>
-    </div>
-
-  </div>
-</section>
+    
     <!-- =====================================================
-     Kurdana Library — Stage 3
-     Search / Filter / Sort
-===================================================== -->
-
-<div class="library-controls-stage3">
-
-  <div class="library-search-stage3">
-
-    <span class="library-search-icon">⌕</span>
-
-    <input
-      type="search"
-      id="librarySmartSearch"
-      placeholder="گەڕان بە ناوی کتێب، نووسەر یان وشە..."
-      autocomplete="off"
-    >
-
-    <button
-      type="button"
-      id="libraryClearSearch"
-      aria-label="پاککردنەوەی گەڕان"
-    >
-      ×
-    </button>
-
-  </div>
-
-
-  <div class="library-filter-row-stage3">
-
-    <button
-      type="button"
-      class="library-filter-btn-stage3 active"
-      data-library-filter="all"
-    >
-      هەموو
-    </button>
-
-    <button
-      type="button"
-      class="library-filter-btn-stage3"
-      data-library-filter="کتێب"
-    >
-      کتێب
-    </button>
-
-    <button
-      type="button"
-      class="library-filter-btn-stage3"
-      data-library-filter="شیعر"
-    >
-      شیعر
-    </button>
-
-    <button
-      type="button"
-      class="library-filter-btn-stage3"
-      data-library-filter="زمانەوانی"
-    >
-      زمانەوانی
-    </button>
-
-    <button
-      type="button"
-      class="library-filter-btn-stage3"
-      data-library-filter="ئەدەبیات"
-    >
-      ئەدەبیات
-    </button>
-
-    <button
-      type="button"
-      class="library-filter-btn-stage3"
-      data-library-filter="favorites"
-    >
-      ♥ دڵخوازەکان
-    </button>
-
-  </div>
-
-
-  <div class="library-sort-stage3">
-
-    <label for="librarySort">
-      ڕیزکردن:
-    </label>
-
-    <select id="librarySort">
-
-      <option value="default">
-        بنەڕەتی
-      </option>
-
-      <option value="newest">
-        نوێترین
-      </option>
-
-      <option value="oldest">
-        کۆنترین
-      </option>
-
-      <option value="az">
-        ناو A → Z
-      </option>
-
-      <option value="za">
-        ناو Z → A
-      </option>
-
-    </select>
-
-  </div>
-
-</div>
-
-
-<div
-  class="library-results-stage3"
-  id="libraryResultsInfo"
->
-  ٦ ئەنجام دۆزرایەوە
-</div>
-
-
-<div
-  class="library-empty-stage3"
-  id="libraryEmptyState"
-  hidden
->
-
-  <div class="library-empty-icon">
-    📚
-  </div>
-
-  <h3>
-    هیچ کتێبێک نەدۆزرایەوە
-  </h3>
-
-  <p>
-    وشەی گەڕان یان فلتەرەکەت بگۆڕە و دووبارە هەوڵ بدە.
-  </p>
-
-  <button
-    type="button"
-    id="libraryResetFilters"
-  >
-    پاککردنەوەی فلتەرەکان
-  </button>
-
-</div>
-<!-- =====================================================
      Kurdana Library — Stage 2
      Book Details Page
 ===================================================== -->
@@ -953,9 +372,149 @@
 <div class="panel analyzer"><div><textarea id="languageInput" placeholder="بۆ نموونە: من کتێبەکە دەخوێنمەوە."></textarea><div class="toolbar"><button id="analyzeBtn" class="green-btn">شیکاری بکە</button><button id="clearAnalyze">پاککردنەوە</button></div></div><div class="analysis-result" id="analysisResult"><strong>ئەنجامی شیکردنەوە</strong><p>token، جۆری وشە، مۆرفیم و ڕۆڵی ڕستەیی لێرە پیشان دەدرێت.</p></div></div>
 <div class="panel-grid" style="margin-top:15px"><div class="panel"><h3>مۆرفۆلۆژی</h3><p>ڕەگ، بنەڕەت، پاشگر و پێشگر و گۆڕانکارییەکانی وشە.</p></div><div class="panel"><h3>سینتاکس</h3><p>پەیوەندی وشەکان و شیکردنەوەی پێکهاتەی ڕستە.</p></div><div class="panel"><h3>Unicode</h3><p>Normalization و پشکنینی نووسینی کوردی بۆ داتای پاک و یەکگرتوو.</p></div></div></div></section>
 
-<section class="page-view" id="libraryPage"><div class="page-shell"><div class="page-title"><div><span class="mini-kicker">Kurdana Library</span><h1>کتێبخانەی کوردی</h1><p>کتێب، وتار و سەرچاوەکان بە ژانر و بابەت بگەڕێ.</p></div><button class="green-btn" id="newPublishFromLibrary">نووسین بڵاو بکەوە</button></div>
-<div class="panel-grid"><div class="panel"><h3>ئەدەبیات</h3><p>شیعر، ڕۆمان، چیرۆک و ڕەخنە.</p></div><div class="panel"><h3>زمانەوانی</h3><p>ڕێزمان، فۆنەتیک، فۆنۆلۆژی، مۆرفۆلۆژی و سینتاکس.</p></div><div class="panel"><h3>توێژینەوە</h3><p>وتار و لێکۆڵینەوەی زانستی.</p></div></div>
-<div class="panel" style="margin-top:15px"><table class="data-table"><thead><tr><th>ناونیشان</th><th>جۆر</th><th>نووسەر</th><th>تازەکاری</th></tr></thead><tbody><tr><td>مێژووی ئەدەبی کوردی</td><td>کتێب</td><td>د. هێمن مەعروف</td><td>١ ڕۆژ پێش</td></tr><tr><td>مۆرفۆلۆژی لە زمانی کوردیدا</td><td>وتار</td><td>د. کامەران عەزیز</td><td>٥ کاتژمێر پێش</td></tr><tr><td>لە سەدەی دوورەوە</td><td>شیعر</td><td>جەلال تەیباری</td><td>٢ کاتژمێر پێش</td></tr></tbody></table></div></div></section>
+
+<section class="page-view" id="libraryPage">
+  <div class="library-wrap">
+    <div class="library-hero">
+      <div>
+        <span class="library-kicker">Kurdana Library</span>
+        <h1>کتێبخانەی کوردی</h1>
+        <p>کتێب، وتار، شیعر و سەرچاوە زمانەوانییەکان لە یەک شوێن.</p>
+      </div>
+      <button class="green-btn" id="newPublishFromLibrary" type="button">
+        + بڵاوکردنەوە
+      </button>
+    </div>
+
+    <div class="library-tools">
+      <div class="library-search">
+        🔍
+        <input id="librarySearch" type="search"
+               placeholder="گەڕان بە ناوی کتێب، نووسەر یان بابەت..."
+               autocomplete="off">
+      </div>
+
+      <div class="library-filters" id="libraryFilters">
+        <button type="button" class="library-filter active" data-library-filter="all">هەموو</button>
+        <button type="button" class="library-filter" data-library-filter="book">کتێب</button>
+        <button type="button" class="library-filter" data-library-filter="article">وتار</button>
+        <button type="button" class="library-filter" data-library-filter="poem">شیعر</button>
+        <button type="button" class="library-filter" data-library-filter="linguistics">زمانەوانی</button>
+        <button type="button" class="library-filter" data-library-filter="favorites">♥ دڵخوازەکان</button>
+      </div>
+
+      <div class="library-smart-controls">
+        <div class="library-smart-search">
+          <span>⌕</span>
+          <input id="librarySmartSearch" type="search"
+                 placeholder="گەڕانی وردتر..."
+                 autocomplete="off">
+          <button id="libraryClearSearch" type="button" aria-label="پاککردنەوە">×</button>
+        </div>
+        <label class="library-sort-label" for="librarySort">ڕیزکردن</label>
+        <select id="librarySort">
+          <option value="default">بنەڕەتی</option>
+          <option value="newest">نوێترین</option>
+          <option value="oldest">کۆنترین</option>
+          <option value="az">ناو A → Z</option>
+          <option value="za">ناو Z → A</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="library-stats">
+      <div><strong id="libraryTotal">0</strong><span>سەرچاوە</span></div>
+      <div><strong id="libraryBooks">0</strong><span>کتێب</span></div>
+      <div><strong id="libraryArticles">0</strong><span>وتار</span></div>
+      <div><strong id="libraryPoems">0</strong><span>شیعر</span></div>
+    </div>
+
+    <div class="library-upload-card" id="libraryUploadCard">
+      <div class="library-upload-head">
+        <div>
+          <span class="library-kicker">Kurdana Library · Add Book</span>
+          <h2>کتێبێکی نوێ زیاد بکە</h2>
+          <p>کتێبەکە و فایلە PDF ـەکە لەناو خودی وێبسایتەکە تۆمار دەکرێن.</p>
+        </div>
+        <span class="library-upload-badge">PDF</span>
+      </div>
+
+      <form id="libraryAddBookForm" class="library-upload-form">
+        <div class="library-form-grid">
+          <label>
+            <span>ناونیشانی کتێب *</span>
+            <input id="libraryBookTitle" name="title" required maxlength="160"
+                   placeholder="بۆ نموونە: ڕێزمانی کوردی">
+          </label>
+          <label>
+            <span>ناوی نووسەر *</span>
+            <input id="libraryBookAuthor" name="author" required maxlength="120"
+                   placeholder="ناوی نووسەر">
+          </label>
+          <label>
+            <span>جۆر</span>
+            <select id="libraryBookType" name="type">
+              <option value="book">کتێب</option>
+              <option value="article">وتار</option>
+              <option value="poem">شیعر</option>
+              <option value="linguistics">زمانەوانی</option>
+            </select>
+          </label>
+          <label>
+            <span>بابەت</span>
+            <input id="libraryBookCategory" name="category" maxlength="80"
+                   placeholder="ئەدەبیات، زمانەوانی...">
+          </label>
+          <label>
+            <span>ساڵ</span>
+            <input id="libraryBookYear" name="year" maxlength="12"
+                   placeholder="٢٠٢٦">
+          </label>
+          <label class="library-file-field">
+            <span>فایلی PDF *</span>
+            <input id="libraryBookPdf" name="pdf" type="file"
+                   accept="application/pdf,.pdf" required>
+          </label>
+        </div>
+
+        <label>
+          <span>کورتەی کتێب</span>
+          <textarea id="libraryBookDescription" name="description" maxlength="700"
+                    placeholder="کورتەیەک لەبارەی کتێبەکە..."></textarea>
+        </label>
+
+        <div class="library-upload-actions">
+          <button class="green-btn" type="submit" id="libraryAddBookBtn">+ زیادکردنی کتێب</button>
+          <button class="library-secondary-btn" type="reset" id="libraryCancelAdd">پاککردنەوە</button>
+          <span id="libraryUploadStatus" class="library-upload-status" aria-live="polite"></span>
+        </div>
+      </form>
+    </div>
+
+    <div class="library-results-stage3" id="libraryResultsInfo">ئامادەیە...</div>
+
+    <div class="library-stage1">
+      <div class="library-section-head">
+        <div>
+          <span class="library-kicker">Kurdana Library</span>
+          <h2>کتێبەکان</h2>
+          <p>هەموو سەرچاوەکانت لێرە دەبینیت.</p>
+        </div>
+        <span class="library-count" id="libraryCountBadge">0 کتێب</span>
+      </div>
+
+      <div class="library-books-grid" id="libraryBooksGrid"></div>
+
+      <div class="library-empty-stage3" id="libraryEmptyState" hidden>
+        <div class="library-empty-icon">📚</div>
+        <h3>هیچ سەرچاوەیەک نەدۆزرایەوە</h3>
+        <p>وشەی گەڕان یان فلتەرەکەت بگۆڕە و دووبارە هەوڵ بدە.</p>
+        <button type="button" id="libraryResetFilters">پاککردنەوەی فلتەرەکان</button>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <section class="page-view" id="communityPage"><div class="page-shell"><div class="page-title"><div><span class="mini-kicker">Kurdana Community</span><h1>کۆمەڵگەی Kurdana</h1><p>نووسەر و خوێنەرە کوردەکان پێکەوە بنووسن و گفتوگۆ بکەن.</p></div><button class="green-btn" id="publishBtn2">+ نووسین</button></div>
 <div class="profile-head"><div class="avatar">K</div><div><h2>پڕۆفایلی Kurdana</h2><p>لە وەشانی داهاتوودا پڕۆفایلی هەموو بەکارهێنەران لێرە دەردەکەوێت.</p></div></div>
@@ -2021,5 +1580,23 @@ Structured Linguistic Output</div><div class="s13-note" style="margin-top:10px">
 
   
 <div class="toast" aria-live="polite"></div>  <script src="script.js"></script>
+
+<!-- Kurdana PDF Reader -->
+<div class="kurdana-pdf-reader" id="kurdanaPdfReader" aria-hidden="true">
+  <div class="kurdana-pdf-reader-head">
+    <div class="kurdana-pdf-reader-title">
+      <span class="library-kicker">Kurdana PDF Reader</span>
+      <h2 id="kurdanaPdfReaderTitle">خوێندنەوەی کتێب</h2>
+    </div>
+    <div class="kurdana-pdf-reader-actions">
+      <button type="button" class="library-secondary-btn" id="kurdanaPdfNewTab">کردنەوە لە پەڕەی نوێ</button>
+      <button type="button" class="kurdana-pdf-close" id="kurdanaPdfClose" aria-label="داخستن">×</button>
+    </div>
+  </div>
+  <div class="kurdana-pdf-reader-body">
+    <iframe id="kurdanaPdfFrame" title="PDF Reader" loading="lazy"></iframe>
+  </div>
+</div>
+
 </body>
 </html>
