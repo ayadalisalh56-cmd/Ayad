@@ -29,6 +29,7 @@
 
   /* ---------------------------------------------------------
      ONE navigation function
+     This replaces the many duplicated sXXGo/kfGo functions.
      --------------------------------------------------------- */
   window.kurdanaGo = (id, options = {}) => {
     if (!id) return false;
@@ -415,11 +416,12 @@
     });
 
     if (sort !== "default") {
-      const grid = $("#libraryBooksGrid") || $("#libraryGrid");
+      const grid =
+        $("#libraryBooksGrid") ||
+        $("#libraryGrid");
 
       if (grid) {
-        // چاکسازی: ڕیزبەندکردنی تەواوی کارتەکان بۆ ئەوەی ڕیزبەندییەکەیان تێک نەچێت لەکاتی لادانی فلتەر
-        const sorted = [...cards].sort((a, b) => {
+        const sorted = [...visibleCards].sort((a, b) => {
           const aBook = LIBRARY_BOOKS[a.dataset.bookId] || {};
           const bBook = LIBRARY_BOOKS[b.dataset.bookId] || {};
 
@@ -472,26 +474,43 @@
 
     setText("bookTitle", book.title);
     setText("bookDetailTitle", book.title);
+
     setText("bookAuthor", `نووسەر: ${book.author}`);
     setText("bookDetailAuthor", book.author);
+
     setText("bookType", book.type);
     setText("bookDetailType", book.type);
+
     setText("bookDetailCategory", book.category);
     setText("bookDetailPages", book.pages);
     setText("bookDetailYear", book.year);
     setText("bookDescription", book.description);
     setText("bookDetailDescription", book.description);
 
-    const coverTitle = $("#bookDetailCoverTitle");
-    if (coverTitle) coverTitle.textContent = book.title;
+    const coverTitle =
+      $("#bookDetailCoverTitle");
 
-    const coverAuthor = $("#bookDetailCoverAuthor");
-    if (coverAuthor) coverAuthor.textContent = book.author;
+    if (coverTitle) {
+      coverTitle.textContent = book.title;
+    }
 
-    const decoration = $("#bookDetailDecoration");
-    if (decoration) decoration.textContent = "✦";
+    const coverAuthor =
+      $("#bookDetailCoverAuthor");
 
-    const tags = $("#bookDetailTags");
+    if (coverAuthor) {
+      coverAuthor.textContent = book.author;
+    }
+
+    const decoration =
+      $("#bookDetailDecoration");
+
+    if (decoration) {
+      decoration.textContent = "✦";
+    }
+
+    const tags =
+      $("#bookDetailTags");
+
     if (tags) {
       tags.replaceChildren();
 
@@ -502,16 +521,37 @@
       });
     }
 
-    // چاکسازی: تەنها ئەو دوگمانە دەگۆڕێت کە لەناو بەشی پیشاندانی کتێبەکانن نەک بەشەکانی تری پەڕەکە
-    const saveButtons = $$("#bookPage .library-save-btn, #bookSaveBtn");
+    const saveButtons =
+      $$(".library-save-btn, #bookSaveBtn");
+
     saveButtons.forEach((button) => {
       button.dataset.bookId = bookId;
     });
 
     updateBookmarkButtons();
 
-    const readButton = $("#bookStartReading");
-    if (readButton) readButton.dataset.bookId = bookId;
+    const readButton =
+      $("#bookStartReading");
+
+    if (readButton) {
+      readButton.dataset.bookId = bookId;
+    }
+
+    const pdfButton =
+      $("#bookOpenPdf, #bookReadPdf, #bookReadButton");
+
+    if (pdfButton) {
+      pdfButton.onclick = () => {
+        if (!book.pdf) {
+          window.kurdanaToast(
+            "فایلی بۆ ئەم کتێبە دانەنراوە."
+          );
+          return;
+        }
+
+        window.open(book.pdf, "_blank", "noopener");
+      };
+    }
 
     return true;
   }
@@ -529,6 +569,7 @@
 
   /* ---------------------------------------------------------
      Library buttons — event delegation.
+     This is important because cards can be rendered dynamically.
      --------------------------------------------------------- */
   document.addEventListener("click", (event) => {
     const viewButton = event.target.closest(
@@ -559,6 +600,7 @@
         event.preventDefault();
 
         const saved = toggleSaved(id);
+
         updateBookmarkButtons();
 
         window.kurdanaToast(
@@ -570,25 +612,6 @@
         applyLibraryFilters();
         return;
       }
-    }
-
-    // چاکسازی: ئیڤێنتی کردنەوەی کتێب گواسترایەوە ئێرە بۆ باشترکردنی خێرایی و ڕێگریکردن لە کێشەی Overwrite
-    const pdfButton = event.target.closest("#bookOpenPdf, #bookReadPdf, #bookReadButton");
-
-    if (pdfButton) {
-      event.preventDefault();
-      const readButtonContext = $("#bookStartReading") || $("#bookSaveBtn");
-      const currentBookId = readButtonContext ? readButtonContext.dataset.bookId : null;
-      
-      if (currentBookId && LIBRARY_BOOKS[currentBookId]) {
-        const pdf = LIBRARY_BOOKS[currentBookId].pdf;
-        if (!pdf) {
-          window.kurdanaToast("فایلی بۆ ئەم کتێبە دانەنراوە.");
-        } else {
-          window.open(pdf, "_blank", "noopener");
-        }
-      }
-      return;
     }
 
     const libraryHomeButton = event.target.closest(
@@ -617,6 +640,7 @@
 
     if (publishButton) {
       event.preventDefault();
+
       if (document.getElementById("publishPage")) {
         window.kurdanaGo("publishPage");
       }
