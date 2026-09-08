@@ -752,3 +752,76 @@
   });
 
 })();
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+// کۆدی بەستنەوەی فایەربەیسەکەت لێرە دابنێ
+const firebaseConfig = {
+  apiKey: "کۆدی_apiKey_خۆت_لێرە_دابنێ",
+  authDomain: "my-books12.firebaseapp.com",
+  projectId: "my-books12",
+  storageBucket: "my-books12.firebasestorage.app",
+  messagingSenderId: "861887444664",
+  appId: "1:861887444664:web:596d86b10c23...",
+  measurementId: "G-ZH6F4HCV6B"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const postForm = document.getElementById("postForm");
+const postsContainer = document.getElementById("postsContainer");
+
+// ۱. ناردنی زانیارییەکان بۆ داتابەیس
+if (postForm) {
+  postForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const authorName = document.getElementById("authorName").value;
+    const category = document.getElementById("category").value;
+    const title = document.getElementById("title").value;
+    const content = document.getElementById("content").value;
+    const link = document.getElementById("link").value;
+
+    try {
+      await addDoc(collection(db, "posts"), {
+        author: authorName || "نەنوسراو",
+        category: category,
+        title: title,
+        content: content,
+        link: link || "",
+        createdAt: serverTimestamp()
+      });
+
+      alert("بابەتەکەت بە سەرکەوتوویی بڵاوکرایەوە!");
+      postForm.reset();
+    } catch (error) {
+      console.error("خەتا لە بڵاوکردنەوە: ", error);
+      alert("کێشەیەک ڕووی دا لە بڵاوکردنەوەدا!");
+    }
+  });
+}
+
+// ۲. خوێندنەوەی ڕاستەوخۆ لە داتابەیس و دەردانی لەسەر پەڕەکە
+if (postsContainer) {
+  onSnapshot(collection(db, "posts"), (snapshot) => {
+    postsContainer.innerHTML = "";
+
+    snapshot.forEach((doc) => {
+      const item = doc.data();
+      
+      const card = document.createElement("div");
+      card.style.cssText = "border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 8px; background: #f9f9f9; text-align: right;";
+
+      card.innerHTML = `
+        <span style="background: #007bff; color: white; padding: 3px 8px; border-radius: 4px; font-size: 12px;">${item.category}</span>
+        <h3 style="margin: 10px 0 5px 0;">${item.title}</h3>
+        <small style="color: #666;">نووسەر/نێرەر: ${item.author}</small>
+        <p style="margin-top: 10px; white-space: pre-line;">${item.content}</p>
+        ${item.link ? `<a href="${item.link}" target="_blank" style="color: #007bff; display: inline-block; margin-top: 5px; font-weight: bold;">داگرتن / بینینی لینک</a>` : ''}
+      `;
+
+      postsContainer.appendChild(card);
+    });
+  });
+}
