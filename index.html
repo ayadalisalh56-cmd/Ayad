@@ -2023,3 +2023,37 @@ Structured Linguistic Output</div><div class="s13-note" style="margin-top:10px">
 <div class="toast" aria-live="polite"></div>  <script src="script.js"></script>
 </body>
 </html>
+<!-- فۆڕمی بڵاوکردنەوەی بابەت و کتێب -->
+<section style="max-width: 600px; margin: 20px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; direction: rtl;">
+  <h3>بڵاوکردنەوەی بابەتی نوێ / کتێب</h3>
+  <form id="postForm">
+    <input type="text" id="authorName" placeholder="ناوی نێرەر / نووسەر" style="width: 100%; margin-bottom: 10px; padding: 8px;"><br>
+    
+    <label for="category">جۆری بابەت:</label>
+    <select id="category" style="width: 100%; margin-bottom: 10px; padding: 8px;">
+      <option value="کتێب">کتێب</option>
+      <option value="شیعر">شیعر</option>
+      <option value="وتار">وتار</option>
+      <option value="زمانەوانی">بابەتی زمانەوانی</option>
+    </select><br>
+
+    <input type="text" id="title" placeholder="سەردێڕی بابەت یان ناوی کتێب" required style="width: 100%; margin-bottom: 10px; padding: 8px;"><br>
+    <textarea id="content" placeholder="ناوەڕۆکی بابەت یان کورته‌شیعر..." rows="4" required style="width: 100%; margin-bottom: 10px; padding: 8px;"></textarea><br>
+    <input type="url" id="link" placeholder="لینکی داگرتنی کتێب یان سەرچاوە (ئەگەر هەبێت)" style="width: 100%; margin-bottom: 10px; padding: 8px;"><br>
+
+    <button type="submit" style="padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">بڵاوکردنەوە</button>
+  </form>
+</section>
+
+<hr style="margin: 30px 0;">
+
+<!-- بەشی نیشاندانی بابەت و کتێبە بڵاوکراوەکان -->
+<section style="max-width: 800px; margin: 0 auto; padding: 10px; direction: rtl;">
+  <h2>بابەتە بڵاوکراوەکان و کتێبخانە</h2>
+  <div id="postsContainer">
+    <!-- بابەتەکان بە ئۆتۆماتیکی لێرە دەردەکەون -->
+  </div>
+</section>
+
+<!-- بەستنەوەی فایلی javascript -->
+<script type="module" src="script.js"></script>
